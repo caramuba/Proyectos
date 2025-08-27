@@ -1,0 +1,38 @@
+
+
+main {
+    padding-top: 2vh;
+}
+
+#heroImage {
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.scrolled #heroImage {
+    transform: translateY(-150px);
+    opacity: 0;
+}
+
+#navbarLogo img {
+    height: 40px;
+    transition: opacity 0.5s ease;
+}
+
+.card img {
+    height: 250px;
+    object-fit: cover;
+}
+
+#carouselPublicaciones .carousel-item {
+    transition: transform 1.5s ease-in-out;
+}
+
+#carouselPublicaciones .card img {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+#carouselPublicaciones .carousel-item-next .card img, 
+#carouselPublicaciones .carousel-item-prev .card img {
+    transform: scale(1.05);
+    opacity: 0.8;
+}
