@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "nombre": "Remera Oversize Negra",
+    "descripcion": "Remera de algodón orgánico, estilo urbano.",
+    "precio": 35,
+    "img": "https://media.istockphoto.com/id/483425141/photo/blank-black-t-shirt-front-with-clipping-path.jpg?s=2048x2048&w=is&k=20&c=ZJ9RFyQX0UU8cb_iIVAAkpgYYiwjj0x95ZWKlbtW15w=",
+    "categoria": "remeras"
+  },
+  {
+    "id": 2,
+    "nombre": "Campera Cuero Negro",
+    "descripcion": "Campera liviana ideal para media estación.",
+    "precio": 75,
+    "img": "https://images.unsplash.com/photo-1727515546577-f7d82a47b51d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=736",
+    "categoria": "buzos"
+  },
+  {
+    "id": 3,
+    "nombre": "Buzo Rojo",
+    "descripcion": "Buzo de hilo, Diseño liso .",
+    "precio": 95,
+    "img": "https://media.istockphoto.com/id/1347666824/photo/blank-sweatshirt-mock-up-in-front-and-back-views.jpg?s=2048x2048&w=is&k=20&c=e6YdSMuUjk2ewLDmzqpIjS_L6vYJw63SFB9BCTOs4B8=",
+    "categoria": "buzos"
+  },
+  {
+    "id": 4,
+    "nombre": "Pantalon Negro",
+    "descripcion": "Pantalon negro comodo y elastico.",
+    "precio": 25,
+    "img": "https://plus.unsplash.com/premium_photo-1677360678350-80685676c6d4?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
+    "categoria": "pantalones"
+  },
+  {
+    "id": 5,
+    "nombre": "Pantalon de Jean azul",
+    "descripcion": "Bolso espacioso con varios compartimientos.",
+    "precio": 55,
+    "img": "https://f.fcdn.app/imgs/c88cb3/cuatroases.com.uy/cua/e5b4/webp/catalogo/1300117038841300117038841/1500-1500/jean-localizado-jean-localizado.jpg",
+    "categoria": "pantalones"
+  },
+  {
+    "id": 6,
+    "nombre": "Pantalon Cargo Verde",
+    "descripcion": "Pantalla LED y correa de silicona.",
+    "precio": 40,
+    "img": "https://duxon.uy/cdn/shop/files/DUXON4656.jpg?v=1715637306&width=990",
+    "categoria": "pantalones"
+  },
+  {
+    "id": 7,
+    "nombre": "Remera Oversize roja",
+    "descripcion": "Remera de algodón orgánico, estilo urbano.",
+    "precio": 35,
+    "img": "https://deliver.com.ar/cdn/shop/products/Remera_Oversize_2.01-20-rojo-scaled.jpg?v=1759413139",
+    "categoria": "remeras"
+  },
+  {
+    "id": 8,
+    "nombre": "Buzo Capucha Negro",
+    "descripcion": "Buzo con capucha color negro.",
+    "precio": 75,
+    "img": "https://f.fcdn.app/imgs/d8f747/www.atrixuy.com/atriuy/3130/webp/catalogo/TBIND274_NEGROXL_1/1500-1500/canguro-buzo-oversize-capucha-cuello-frio-invierno-unisex-color-negro-talle-xl.jpg",
+    "categoria": "buzos"
+  }
+]

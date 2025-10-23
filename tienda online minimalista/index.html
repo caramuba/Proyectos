@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>street Store</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="logo">Street Store</h1>
+        <nav class="filtros">
+            <button class="filtro activo" data-categoria="todos">Todos</button>
+            <button class="filtro" data-categoria="remeras">Remeras</button>
+            <button class="filtro" data-categoria="pantalones">Pantalones</button>
+            <button class="filtro" data-categoria="buzos">Buzos</button>
+        </nav>
+        <div class="icono-carrito flotante">
+            <span id="contador-carrito">0</span>
+        </div>
+    </header>
+
+    <main class="main">
+        <section id="productos-container" class="productos"></section>
+        <aside id="carrito-contenedor" class="carrito oculto">
+            <ul id="lista-carrito"></ul>
+            <div class="total">
+                <span>Total:</span>
+                <strong id="total-carrito">$0</strong>
+            </div>
+            <button id="vaciar-carrito" class="btn-vaciar">Vaciar carrito</button>
+        </aside>
+    </main>
+    
+    <script type="module" src="./assets/js/app.js"></script>
+</body>
+
+</html>
