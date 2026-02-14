@@ -128,9 +128,10 @@ export default function App() {
       );
     })
     .sort((a, b) => {
-      if (sortOption === "priceAsc")
-        if (sortOption === "priceDesc")
-          if (sortOption === "az") if (sortOption === "za") return 0;
+      if (sortOption === "priceAsc") return a.price - b.price;
+      if (sortOption === "priceDesc") return b.price - a.price;
+      if (sortOption === "az") return a.name.localeCompare(b.name);
+      if (sortOption === "za") return b.name.localeCompare(a.name);
     });
 
   const handleEdit = (product) => {
@@ -267,13 +268,13 @@ export default function App() {
             <input
               type="number"
               placeholder="Precio max"
-              value={minPrice}
+              value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
               className="px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
             />
 
             <select
-              value={sotOption}
+              value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
               className="px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
             >
@@ -298,50 +299,55 @@ export default function App() {
           {products.length === 0 ? (
             <p className="text-gray-300">No hay productos disponibles. 📦</p>
           ) : (
-            <div className="space-y-4">
-              <input
-                type="text"
-                placeholder="Buscar producto..."
-                className="w-full mb-4 py-3 rounded-2xl bg-white/20 text-gray-700 placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (
                 <div
                   key={product._id}
-                  className="flex gap-4 items-center bg-white/10 border border-white/20 p-4 rounded-2xl hover:bg-white/20 transition shadow-md"
+                  className="bg-white/10 border border-white/20 rounded-2xl overflow-hidden shadow-xl hover:scale-[1.02] transition"
                 >
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-16 h-16 rounded-xl object-cover border border-white/20 hover:scale-105 transition shadow-md"
+                    className="w-full h-44 object-cover"
                   />
 
-                  <div className="flex-1">
+                  <div className="p-4 flex flex-col gap-2">
                     <h3 className="text-xl font-bold">{product.name}</h3>
                     <p className="text-gray-300 text-sm line-clamp-2">
                       {product.description}
                     </p>
                     <p className="text-green-400 font-bold mt-1">
-                      ${product.price} | Stock: {product.stock}
+                      ${product.price}
                     </p>
-                  </div>
 
-                  <div className="flex flex-col gap-2">
-                    <button
-                      onClick={() => handleEdit(product)}
-                      className="bg-blue-600 px-4 py-2 rounded-xl font-bold hover:bg-blue-700 transition"
-                    >
-                      Editar
-                    </button>
+                    <p className="text-gray-400 text-sm">
+                      stock:{" "}
+                      <span
+                        className={
+                          product.stock > 0
+                            ? "text-green-400 font-bold"
+                            : "text-red-400 font-bold"
+                        }
+                      >
+                        {product.stock}
+                      </span>
+                    </p>
 
-                    <button
-                      onClick={() => askDelete(product)}
-                      className="bg-red-600 px-4 py-2 rounded-xl font-bold hover:bg-red-700 transition"
-                    >
-                      Borrar
-                    </button>
+                    <div className="flex flex-col gap-2">
+                      <button
+                        onClick={() => handleEdit(product)}
+                        className="bg-blue-600 px-4 py-2 rounded-xl font-bold hover:bg-blue-700 transition"
+                      >
+                        Editar
+                      </button>
+
+                      <button
+                        onClick={() => askDelete(product)}
+                        className="bg-red-600 px-4 py-2 rounded-xl font-bold hover:bg-red-700 transition"
+                      >
+                        Borrar
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
