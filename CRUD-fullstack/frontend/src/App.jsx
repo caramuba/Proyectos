@@ -6,6 +6,11 @@ import {
   updateProductRequest,
 } from "./api/products.api";
 
+import ProductForm from "./components/ProductForm";
+import ProductCard from "./components/ProductCard";
+import ConfirmModal from "./components/ConfirmModal";
+import FiltersBar from "./components/FiltersBar";
+
 export default function App() {
   //==================================================
   // ESTADOS PRINCIPALES
@@ -113,27 +118,6 @@ export default function App() {
     setProductToDelete(null);
   };
 
-  const filteredProducts = products
-    .filter((product) => {
-      const matchesSearch = product.name
-        .toLowerCase()
-        .includes(search.toLowerCase());
-      const matchesMinPrice =
-        minPrice === "" || product.price >= Number(minPrice);
-      const matchesMaxPrice =
-        maxPrice === "" || product.price <= Number(maxPrice);
-      const matchesStock = onlyStock ? product.stock > 0 : true;
-      return (
-        matchesSearch && matchesMinPrice && matchesMaxPrice && matchesStock
-      );
-    })
-    .sort((a, b) => {
-      if (sortOption === "priceAsc") return a.price - b.price;
-      if (sortOption === "priceDesc") return b.price - a.price;
-      if (sortOption === "az") return a.name.localeCompare(b.name);
-      if (sortOption === "za") return b.name.localeCompare(a.name);
-    });
-
   const handleEdit = (product) => {
     setEditingId(product._id);
 
@@ -158,88 +142,39 @@ export default function App() {
     });
   };
 
+  const filteredProducts = products
+    .filter((product) => {
+      const matchesSearch = product.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
+      const matchesMinPrice =
+        minPrice === "" || product.price >= Number(minPrice);
+      const matchesMaxPrice =
+        maxPrice === "" || product.price <= Number(maxPrice);
+      const matchesStock = onlyStock ? product.stock > 0 : true;
+      return (
+        matchesSearch && matchesMinPrice && matchesMaxPrice && matchesStock
+      );
+    })
+    .sort((a, b) => {
+      if (sortOption === "priceAsc") return a.price - b.price;
+      if (sortOption === "priceDesc") return b.price - a.price;
+      if (sortOption === "az") return a.name.localeCompare(b.name);
+      if (sortOption === "za") return b.name.localeCompare(a.name);
+    });
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-zinc-950 via-slate-900 to-black text-blue-500 flex justify-center items-center p-6">
       {/* Contenedor principal */}
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Columna izquierda formulario */}
-        <div className="bg-white/10 border border-white/20 backdrop-blur-xl p-8 rounded-3xl shadow-2xl">
-          {/* Titulo Dinamico dependiendo si creamos o editamos */}
-          <h1 className="text-3xl font-extrabold mb-2">
-            {editingId ? "Editar Producto ✍️" : "Nuevo Producto 📦"}
-          </h1>
-
-          {/* Subtitulo */}
-          <p className="text-gray-500 mb-6">
-            Administra tu tienda de manera sencilla y eficiente. ¡Agrega, edita
-            o elimina productos fácilmente! 🛒
-          </p>
-
-          {/* Formulario */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Nombre del Producto"
-              value={form.name}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-green-500 transition"
-            />
-
-            <input
-              type="number"
-              name="price"
-              placeholder="Precio"
-              value={form.price}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-green-500 transition"
-            />
-
-            <input
-              type="number"
-              name="stock"
-              placeholder="Stock"
-              value={form.stock}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-green-500 transition"
-            />
-
-            <input
-              type="text"
-              name="image"
-              placeholder="URL de la imagen"
-              value={form.image}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-green-500 transition"
-            />
-
-            <textarea
-              type="text"
-              name="description"
-              placeholder="Descripcion"
-              value={form.description}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-green-500 transition"
-            />
-
-            <button
-              type="submit"
-              className="w-full bg-green-600 py-3 rounded-xl text-white/50 font-bold hover:bg-green-700 transition shadow-lg"
-            >
-              {editingId ? "Actualizar Producto" : "Crear Producto"}
-            </button>
-
-            {editingId && (
-              <button
-                type="button"
-                onClick={cancelEdit}
-                className="w-full bg-green-600 py-3 rounded-xl font-bold hover:bg-green-700 transition shadow-lg"
-              >
-                Cancelar Edición
-              </button>
-            )}
-          </form>
-        </div>
+        <ProductForm
+          form={form}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          editingId={editingId}
+          cancelEdit={cancelEdit}
+        />
 
         {/* Columna derecha lista de productos */}
         <div className="bg-white/10 border border-white/20 backdrop-blur-xl p-8 rounded-3xl shadow-2xl">
@@ -248,149 +183,43 @@ export default function App() {
             Lista de Productos 🛒
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <input
-              type="text"
-              placeholder="Buscar..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-blue-500 transition"
-            />
+          {/* Barra de filtros */}
 
-            <input
-              type="number"
-              placeholder="Precio min"
-              value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
-              className="px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
-            />
+          <FiltersBar
+            search={search}
+            setSearch={setSearch}
+            minPrice={minPrice}
+            setMinPrice={setMinPrice}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
+            onlyStock={onlyStock}
+            setOnlyStock={setOnlyStock}
+            sortOption={sortOption}
+            setSortOption={setSortOption}
+          />
 
-            <input
-              type="number"
-              placeholder="Precio max"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-              className="px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
-            />
-
-            <select
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-              className="px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
-            >
-              <option value="none">Sin orden</option>
-              <option value="priceAsc">Precio: Menor a Mayor</option>
-              <option value="priceDesc">Precio: Mayor a Menor</option>
-              <option value="az">Nombre: A-Z</option>
-              <option value="za">Nombre: Z-A</option>
-            </select>
-          </div>
-
-          <label className="flex items-center gap-2 mb-6 text-gray-300 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={onlyStock}
-              onChange={(e) => setOnlyStock(e.target.checked)}
-              className="w-5 h-4"
-            />
-            Solo mostrar productos en stock
-          </label>
-
-          {products.length === 0 ? (
+          {filteredProducts.length === 0 ? (
             <p className="text-gray-300">No hay productos disponibles. 📦</p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (
-                <div
+                <ProductCard
                   key={product._id}
-                  className="bg-white/10 border border-white/20 rounded-2xl overflow-hidden shadow-xl hover:scale-[1.02] transition"
-                >
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-44 object-cover"
-                  />
-
-                  <div className="p-4 flex flex-col gap-2">
-                    <h3 className="text-xl font-bold">{product.name}</h3>
-                    <p className="text-gray-300 text-sm line-clamp-2">
-                      {product.description}
-                    </p>
-                    <p className="text-green-400 font-bold mt-1">
-                      ${product.price}
-                    </p>
-
-                    <p className="text-gray-400 text-sm">
-                      stock:{" "}
-                      <span
-                        className={
-                          product.stock > 0
-                            ? "text-green-400 font-bold"
-                            : "text-red-400 font-bold"
-                        }
-                      >
-                        {product.stock}
-                      </span>
-                    </p>
-
-                    <div className="flex flex-col gap-2">
-                      <button
-                        onClick={() => handleEdit(product)}
-                        className="bg-blue-600 px-4 py-2 rounded-xl font-bold hover:bg-blue-700 transition"
-                      >
-                        Editar
-                      </button>
-
-                      <button
-                        onClick={() => askDelete(product)}
-                        className="bg-red-600 px-4 py-2 rounded-xl font-bold hover:bg-red-700 transition"
-                      >
-                        Borrar
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                  product={product}
+                  handleEdit={handleEdit}
+                  askDelete={askDelete}
+                />
               ))}
             </div>
           )}
         </div>
 
-        {showModal && (
-          <div className="fixed inset-1 bg-black/60 flex justify-center items-center z-50">
-            <div className="w-full bg-zinc-900 border border-white/20 p-6 rounded-2xl shadow-2xl">
-              <h2 className="text-2xl font-bold text-white mb-2">
-                Eliminar Producto
-              </h2>
-
-              <p className="text-gray-300 mb-4">
-                Estas a punto de eliminar{" "}
-                <span className="font-bold text-red-400">
-                  {productToDelete?.name}
-                </span>
-                .
-              </p>
-              <p className="text-gray-300 flex justify-center mb-4">
-                Esta accion no se puede deshacer.
-              </p>
-
-              <div className="flex justify-between">
-                <button
-                  onClick={confirmDelete}
-                  className="px-4 py-2 rounded-xl bg-gray-600 hover:bg-gray-700 transition font-bold text-white"
-                >
-                  Si, borrar.
-                </button>
-
-                <button
-                  onClick={cancelDelete}
-                  className="px-4 py-2 rounded-xl bg-gray-600 hover:bg-gray-700 transition font-bold text-white"
-                >
-                  No, no lo borres!
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        <ConfirmModal
+          show={showModal}
+          productToDelete={productToDelete}
+          confirmDelete={confirmDelete}
+          cancelDelete={cancelDelete}
+        />
       </div>
     </div>
   );
