@@ -9,6 +9,6 @@ app.get("/", (req, res) => {
   res.send("👍🏼 API funcionando correctamente");
 });
 
-app.use("/api", productRoutes);
+app.use("/api/products", productRoutes);
 
 export default app;
