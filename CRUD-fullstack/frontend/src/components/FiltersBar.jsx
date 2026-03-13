@@ -22,7 +22,7 @@ export default function FiltersBar({
 
       <input
         type="number"
-        placeholder="Precio min"
+        placeholder="$ Min"
         value={minPrice}
         onChange={(e) => setMinPrice(e.target.value)}
         className="px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
@@ -30,7 +30,7 @@ export default function FiltersBar({
 
       <input
         type="number"
-        placeholder="Precio max"
+        placeholder="$ Max"
         value={maxPrice}
         onChange={(e) => setMaxPrice(e.target.value)}
         className="px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
@@ -39,9 +39,9 @@ export default function FiltersBar({
       <select
         value={sortOption}
         onChange={(e) => setSortOption(e.target.value)}
-        className="px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
+        className="px-4 py-3 rounded-xl bg-white/20 text-gray-400 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-gray-500 transition"
       >
-        <option value="none">Sin orden</option>
+        <option value="none">Ordenar productos</option>
         <option value="priceAsc">Precio: Menor a Mayor</option>
         <option value="priceDesc">Precio: Mayor a Menor</option>
         <option value="az">Nombre: A-Z</option>

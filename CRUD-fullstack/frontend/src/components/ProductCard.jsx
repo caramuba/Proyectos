@@ -1,4 +1,4 @@
-export default function ProductCard({ product, hundleEdit, ascDelete }) {
+export default function ProductCard({ product, hundleEdit, askDelete }) {
   return (
     <div className="bg-white/10 border border-white/20 rounded-xl overflow-hidden shadow-xl hover:scale-[1.02] transition">
       <img
@@ -27,21 +27,27 @@ export default function ProductCard({ product, hundleEdit, ascDelete }) {
           </span>
         </p>
 
-        <div className="flex flex-col gap-2">
-          <button
-            onClick={() => handleEdit(product)}
-            className="bg-blue-600 px-4 py-2 rounded-xl font-bold hover:bg-blue-700 transition"
-          >
-            Editar
-          </button>
+        {hundleEdit && askDelete && (
+          <div className="flex flex-col gap-2 mt-2">
+            <button
+              onClick={() => {
+                hundleEdit(product);
+              }}
+              className="bg-blue-600 px-4 py-2 rounded-xl font-bold hover:bg-blue-700 transition"
+            >
+              Editar
+            </button>
 
-          <button
-            onClick={() => askDelete(product)}
-            className="bg-red-600 px-4 py-2 rounded-xl font-bold hover:bg-red-700 transition"
-          >
-            Borrar
-          </button>
-        </div>
+            <button
+              onClick={() => {
+                askDelete(product);
+              }}
+              className="bg-red-600 px-4 py-2 rounded-xl font-bold hover:bg-red-700 transition"
+            >
+              Borrar
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

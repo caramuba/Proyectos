@@ -30,9 +30,9 @@ export default function Admin() {
   //==================================================
   const [form, setForm] = useState({
     name: "",
-    price: "",
+    price: 0,
     description: "",
-    stock: "",
+    stock: 0,
     image: "",
   });
 
@@ -62,10 +62,12 @@ export default function Admin() {
   }, []);
 
   const hundleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value, type } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "number" ? (value === "" ? "" : Number(value)) : value,
+    }));
   };
 
   const hundleSubmit = async (e) => {
@@ -75,26 +77,17 @@ export default function Admin() {
     if (form.price === "") return;
 
     if (editingId) {
-      await updateProductRequest(editingId, {
-        ...form,
-        price: Number(form.price),
-        stock: Number(form.stock),
-      });
-
+      await updateProductRequest(editingId, form);
       setEditingId(null);
     } else {
-      await createProductRequest({
-        ...form,
-        price: Number(form.price),
-        stock: Number(form.stock),
-      });
+      await createProductRequest(form);
     }
 
     setForm({
       name: "",
-      price: "",
+      price: 0,
       description: "",
-      stock: "",
+      stock: 0,
       image: "",
     });
 
@@ -137,9 +130,9 @@ export default function Admin() {
 
     setForm({
       name: "",
-      price: "",
+      price: 0,
       description: "",
-      stock: "",
+      stock: 0,
       image: "",
     });
   };
@@ -191,7 +184,7 @@ export default function Admin() {
         />
 
         <div className="bg-white/10 border border-white/20 backdrop-blur-xl p-8 rounded-3xl shadow-2xl">
-          <h2 className="text-3xl font-extrablod mb-2 text-blue-400">
+          <h2 className="text-3xl font-extrabold mb-2 text-blue-400">
             Productos
           </h2>
 

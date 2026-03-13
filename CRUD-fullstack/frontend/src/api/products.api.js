@@ -1,19 +1,15 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:4000/api/products";
+const API = axios.create({
+  baseURL: "http://localhost:4000/api/products",
+});
 
-export const getProductsRequest = () => {
-  return axios.get(API_URL); // get al backend para obtener todos los productos
-};
+export const getProductsRequest = () => API.get("/"); // get al backend para obtener todos los productos
 
-export const createProductRequest = (product) => {
-  return axios.post(API_URL, product); //post al backend para enviar nuevo producto
-};
+export const getProductByIdRequest = (id) => API.get(`/${id}`); //post al backend para enviar nuevo producto
 
-export const deleteProductRequest = (id) => {
-  return axios.delete(`${API_URL}/${id}`); //delete al backend para eliminar producto por id
-};
+export const createProductRequest = (product) => API.post("/", product);
 
-export const updateProductRequest = (id, product) => {
-  return axios.put(`${API_URL}/${id}`, product); //put al backend para actualizar producto por id
-};
+export const deleteProductRequest = (id) => API.delete(`/${id}`); //delete al backend para eliminar producto por id
+
+export const updateProductRequest = (id, product) => API.put(`/${id}`, product);

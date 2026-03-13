@@ -1,7 +1,7 @@
 export default function productForm({
   form,
-  handleChange,
-  handleSubmit,
+  hundleChange,
+  hundleSubmit,
   editingId,
   cancelEdit,
 }) {
@@ -19,13 +19,13 @@ export default function productForm({
       </p>
 
       {/* Formulario */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={hundleSubmit} className="space-y-4">
         <input
           type="text"
           name="name"
           placeholder="Nombre del Producto"
           value={form.name}
-          onChange={handleChange}
+          onChange={hundleChange}
           className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-green-500 transition"
         />
 
@@ -34,7 +34,7 @@ export default function productForm({
           name="price"
           placeholder="Precio"
           value={form.price}
-          onChange={handleChange}
+          onChange={hundleChange}
           className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-green-500 transition"
         />
 
@@ -43,7 +43,7 @@ export default function productForm({
           name="stock"
           placeholder="Stock"
           value={form.stock}
-          onChange={handleChange}
+          onChange={hundleChange}
           className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-green-500 transition"
         />
 
@@ -52,7 +52,7 @@ export default function productForm({
           name="image"
           placeholder="URL de la imagen"
           value={form.image}
-          onChange={handleChange}
+          onChange={hundleChange}
           className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-green-500 transition"
         />
 
@@ -61,7 +61,7 @@ export default function productForm({
           name="description"
           placeholder="Descripcion"
           value={form.description}
-          onChange={handleChange}
+          onChange={hundleChange}
           className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 placeholder-gray-300 outline-none focus:ring-2 focus:ring-green-500 transition"
         />
 
